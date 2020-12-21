@@ -2,36 +2,12 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
+    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <title>Main page</title>
 </head>
 
-<script>
-    $(document).ready(
-        $("load-btn").click(
-            function () {
-                $("#fetchedStudents").load("/students", function (data) {
-                    console.log(data)
-                }
-            )
-            }
-        )
-    )
-    $.ajax({
-        url: '/student/{id}',
-        type: "GET",
-        dataType: "json",
-        data:{
-            name:$("#name").val(),
-            email:$("#email").val(),
-            teacher:$("#teacher").val()
-        }
-
-        success:
-    })
-</script>
 
 <body>
 <div class="container-fluid h-100">
@@ -66,18 +42,17 @@
                 <p> Insert view tables for Students and Teachers here.</p>
                 <br>
                 <h3>Add Student</h3>
-                <form action="/add-student" th:object="${Student}" method="post">
 
-                Name: <input type="text" name="name">
+                <form id="studentForm">
+                Name: <input type="text" id="name">
                 <br>
-                Email: <input type="text" name="email">
+                Email: <input type="text" id="email">
                 <br>
-                Name: <input type="text" name="teacher">
-                <input type="submit" value="Create Student">
+                Name: <input type="number" id="teacher">
+                <br>
+                <button type="submit" class="btn">Load students</button>
                 </form>
-                <br>
 
-                <button id="load-btn">Load students</button>
 
                 <table class="table table-striped">
                     <thead>
@@ -88,10 +63,11 @@
                     </thead>
                     <tbody>
                         <tr th:each="student: ${students}">
-                            <td th:text="${student.name}"/>
-                            <td th:text="${student.email}"/>
-                            <td th:text="${student.teacher.name}"/>
-                            <td><button>Update</button><button>Delete</button></td>
+                            <td><input type="text" name="name" th:value="${student.name}"></td>
+                            <td><input type="text" name="email" th:value="${student.email}"></td>
+                            <td><input type="text" name="teacher" th:value="${student.teacher.name}"></td>
+                            <td><form th:id="'updateForm' + ${student.id}"> <button>Update</button> </form>
+                                <form th:id="'deleteForm' + ${student.id}"> <button>Delete</button> </form></td>
 
                         </tr>
                     </tbody>
@@ -123,5 +99,37 @@
         </div>
     </div>
 </div>
+
+
+<script>
+
+    $(document).ready(
+        $("#studentForm").on('click','.btn', function () {
+                console.log("test")
+                $.ajax({
+                    url: 'http://localhost:8080/student/post',
+                    method: "POST",
+                    data: {
+                        name: $("#name").val(),
+                        email: $("#email").val(),
+                        teacher: $("#teacher").val()
+                    },
+                    success: function (data) {
+                        console.log("Tester" + data)
+                    }
+
+                })
+
+            }
+        )
+        )
+
+
+
+
+
+
+</script>
+
 </body>
 </html>

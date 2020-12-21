@@ -1,23 +1,24 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.Student;
+import com.example.demo.model.Teacher;
 import com.example.demo.repos.StudentRepository;
+import com.example.demo.repos.TeacherRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
-import java.util.OptionalLong;
 
 @RestController
 public class StudentController {
 
     private final StudentRepository studentRepository;
+    private final TeacherRepository teacherRepository;
 
-
-    public StudentController(StudentRepository studentRepository) {
+    public StudentController(StudentRepository studentRepository, TeacherRepository teacherRepository) {
         this.studentRepository = studentRepository;
+        this.teacherRepository = teacherRepository;
     }
 
 
@@ -27,7 +28,7 @@ public class StudentController {
         return studentRepository.findAll();
     }
 
-    @GetMapping("/student/{id}")
+    /*@GetMapping("/student/{id}")
     public ResponseEntity<Optional<Student>> fetchStudent(@PathVariable long id){
         Optional<Student> student = studentRepository.findById(id);
         if(student.isPresent()){
@@ -35,13 +36,18 @@ public class StudentController {
         } else {
             return ResponseEntity.status(404).body(student);
         }
-    }
+    }*/
 
     // Post
     @CrossOrigin(origins = "*", exposedHeaders = "Location")
-    @PostMapping("/student")
+    @PostMapping("/student/post")
     public ResponseEntity<String> create(@ModelAttribute Student s){
+     //   s.setTeacher(teacherRepository.findById(s.getTeacherId()).get());
+        Teacher teacher = teacherRepository.findById(s.getTeacherId()).get();
+        s.setTeacher(teacher);
+
         Student student = studentRepository.save(s);
+        System.out.println("VIRKER DET?!?!?!?!?");
         return ResponseEntity.status(201).header("Location", "/student/" + student.getId()).body("{'Msg': 'student created'}");
     }
 

@@ -1,11 +1,13 @@
 package com.example.demo.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 
 @Entity
+//@JsonIgnoreProperties({"teacher", "id" })
 @Component
 public class Student {
 
@@ -50,7 +52,21 @@ public class Student {
         return teacher;
     }
 
+    public long getTeacherId() {
+        return teacher.getId();
+    }
+
     public void setTeacher(Teacher teacher) {
         this.teacher = teacher;
+    }
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", teacher=" + teacher +
+                '}';
     }
 }
