@@ -21,8 +21,6 @@ public class StudentController {
     }
 
 
-   // @GetMapping("/saveStudent")
-  //  public Student saveStudent(@RequestParam(""))
 
     @GetMapping("/student")
     public List<Student> fetchAllStudents(){
@@ -39,9 +37,17 @@ public class StudentController {
         }
     }
 
+    // Post
+    @CrossOrigin(origins = "*", exposedHeaders = "Location")
+    @PostMapping("/student")
+    public ResponseEntity<String> create(@ModelAttribute Student s){
+        Student student = studentRepository.save(s);
+        return ResponseEntity.status(201).header("Location", "/student/" + student.getId()).body("{'Msg': 'student created'}");
+    }
+
     // Update
 
-    @PutMapping("/post")
+    @PutMapping("/student")
     public ResponseEntity<String> update(@ModelAttribute Student student){
         studentRepository.save(student);
         return ResponseEntity.status(204).body("{'msg':'Hello'}");
@@ -52,11 +58,6 @@ public class StudentController {
         studentRepository.deleteById(id);
         return ResponseEntity.status(200).body("{'msg':'Deleted'}");
     }
-
-    //@PostMapping("/students")
-    //Student newStudent(@RequestBody Student newStudent){
-    //    return studentRepository.save(newStudent);
-   // }
 
 
 }

@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <title>Main page</title>
 </head>
 
@@ -18,6 +19,18 @@
             }
         )
     )
+    $.ajax({
+        url: '/student/{id}',
+        type: "GET",
+        dataType: "json",
+        data:{
+            name:$("#name").val(),
+            email:$("#email").val(),
+            teacher:$("#teacher").val()
+        }
+
+        success:
+    })
 </script>
 
 <body>
@@ -71,14 +84,30 @@
                     <th scope="col">Student name</th>
                     <th scope="col">Email</th>
                     <th scope="col">Teacher</th>
+                    <th scope="col">Update/Delete</th>
                     </thead>
                     <tbody>
                         <tr th:each="student: ${students}">
                             <td th:text="${student.name}"/>
                             <td th:text="${student.email}"/>
                             <td th:text="${student.teacher.name}"/>
+                            <td><button>Update</button><button>Delete</button></td>
 
                         </tr>
+                    </tbody>
+                </table>
+
+                <table class="table table-striped">
+                    <thead>
+                    <th scope="col">#id</th>
+                    <th scope="col">Teacher Name</th>
+                    </thead>
+                    <tbody>
+                    <tr th:each="teacher: ${teachers}">
+                        <td th:text="${teacher.id}"/>
+                        <td th:text="${teacher.name}"/>
+
+                    </tr>
                     </tbody>
                 </table>
             </div>
