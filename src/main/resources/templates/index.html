@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -38,10 +38,21 @@
             <div class="flex-grow">
                 <p> Insert view tables for Students and Teachers here.</p>
                 <br><br>
-                <p> Insert view tables for Students and Teachers here.</p>
-                <br><br>
-                <p> Insert view tables for Students and Teachers here.</p>
+                <table>
+                    <thead>
+                    <th>Student name</th>
+                    <th>Email</th>
+                    <th>Teacher</th>
+                    </thead>
+                    <tbody>
+                        <tr th:each="student: ${students}">
+                            <td th:text="${student.name}"/>
+                            <td th:text="${student.email}"/>
+                            <td th:text="${student.teacher.name}"/>
 
+                        </tr>
+                    </tbody>
+                </table>
             </div>
 
             <!--   evt footer
