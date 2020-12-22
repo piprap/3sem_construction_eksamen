@@ -34,21 +34,21 @@ public class StudentController {
         s.setTeacher(teacher);
 
         Student student = studentRepository.save(s);
-        return ResponseEntity.status(201).header("Location", "/student/" + student.getId()).body("{'Msg': 'student created'}");
+        return ResponseEntity.status(201).header("Location", "/student/" + student.getId()).body("{'Msg': 'create student complete'}");
     }
 
 
     @PutMapping("/student/edit")
     public ResponseEntity<String> update(@ModelAttribute Student student){
         studentRepository.save(student);
-        return ResponseEntity.status(204).body("{'msg':'Hello'}");
+        return ResponseEntity.status(204).body("{'msg':'Edit complete'}");
     }
 
 
     @DeleteMapping("/student/delete")
     public ResponseEntity<String> deleteStudent(@ModelAttribute Student s){
         studentRepository.deleteById(s.getId());
-        return ResponseEntity.status(200).body("{'msg':'Deleted'}");
+        return ResponseEntity.status(200).body("{'msg':'Delete complete'}");
     }
 
 
