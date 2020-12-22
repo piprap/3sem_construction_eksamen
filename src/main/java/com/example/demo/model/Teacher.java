@@ -34,12 +34,5 @@ public class Teacher {
     public void setName(String name) {
         this.name = name;
     }
-    /*
-    public Set<Student> getStudents() {
-        return students;
-    }
 
-    public void setStudents(Set<Student> students) {
-        this.students = students;
-    }*/
 }

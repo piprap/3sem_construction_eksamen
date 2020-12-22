@@ -25,9 +25,6 @@
                 </a>
                 <ul class="nav navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="/add-student">Add student</a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link" href="/add-teacher">Add teacher</a>
                     </li>
                     <li class="nav-item">
@@ -50,7 +47,7 @@
                 <br>
                 Name: <input type="number" id="teacher">
                 <br>
-                <button type="submit" class="btn">Load students</button>
+                <button type="submit" class="btn">Add student</button>
                 </form>
 
 
@@ -63,12 +60,12 @@
                     </thead>
                     <tbody>
                         <tr th:each="student: ${students}">
-                            <td><input type="text" name="name" th:value="${student.name}"></td>
-                            <td><input type="text" name="email" th:value="${student.email}"></td>
-                            <td><input type="text" name="teacher" th:value="${student.teacher.name}"></td>
-                            <td><form th:id="'updateForm' + ${student.id}"> <button>Update</button> </form>
-                                <form th:id="'deleteForm' + ${student.id}"> <button>Delete</button> </form></td>
-
+                            <td><input type="text" th:id="'studentName' + ${student.id}" name="name" th:value="${student.name}"></td>
+                            <td><input type="text" th:id="'studentMail' + ${student.id}" name="email" th:value="${student.email}"></td>
+                            <td><input readonly th:id="'studentTeacherId' + ${student.id}" name="studentTeacher" th:value="${student.teacher.id}"></td>
+                            <td> <button th:id="'updateForm' + ${student.id}" th:onclick="'updateStudent('+ ${student.id} +')'">Update</button>
+                                <button th:id="'deleteForm' + ${student.id}" th:onclick="'deleteStudent(' + ${student.id} + ')'">Delete</button>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -82,21 +79,18 @@
                     <tr th:each="teacher: ${teachers}">
                         <td th:text="${teacher.id}"/>
                         <td th:text="${teacher.name}"/>
-
                     </tr>
                     </tbody>
                 </table>
             </div>
 
-            <!--   evt footer
-            <footer class="navbar navbar-toggleable-xl navbar-faded navbar-light">
-            </footer> top kek
-            -->
+
 
         </div>
         <!-- right sidebar -->
         <div class="col-md-2 fixed bg-light">
         </div>
+
     </div>
 </div>
 
@@ -105,7 +99,6 @@
 
     $(document).ready(
         $("#studentForm").on('click','.btn', function () {
-                console.log("test")
                 $.ajax({
                     url: 'http://localhost:8080/student/post',
                     method: "POST",
@@ -115,20 +108,47 @@
                         teacher: $("#teacher").val()
                     },
                     success: function (data) {
-                        console.log("Tester" + data)
                     }
-
                 })
-
             }
         )
         )
 
+        function deleteStudent(id){
+            $.ajax({
+                url: 'http://localhost:8080/student/delete',
+                method: "DELETE",
+                data: {
+                    id: id
+                },
+                success: function (data) {
+                    console.log("Tester" + data)
+                    location.reload() //lidt snyd
+                }
+            })
+        }
 
+    function updateStudent(id){
+        console.log(id)
+        var studentMail = "studentMail" + id;
+        var studentName = "studentName" + id;
+        var studentTeacherId = "studentTeacherId" + id;
 
+        $.ajax({
+            url: 'http://localhost:8080/student/edit',
+            method: "PUT",
+            data: {
+                id: id,
+                name: $('#' + studentName).val(),
+                email: $('#' + studentMail).val(),
+                teacher: $('#' + studentTeacherId).val()
+            },
+            success: function (data) {
+                console.log("Tester" + data)
+            }
 
-
-
+        })
+    }
 </script>
 
 </body>

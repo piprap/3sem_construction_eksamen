@@ -28,40 +28,33 @@ public class StudentController {
         return studentRepository.findAll();
     }
 
-    /*@GetMapping("/student/{id}")
-    public ResponseEntity<Optional<Student>> fetchStudent(@PathVariable long id){
-        Optional<Student> student = studentRepository.findById(id);
-        if(student.isPresent()){
-            return ResponseEntity.status(200).body(student);
-        } else {
-            return ResponseEntity.status(404).body(student);
-        }
-    }*/
 
     // Post
     @CrossOrigin(origins = "*", exposedHeaders = "Location")
     @PostMapping("/student/post")
     public ResponseEntity<String> create(@ModelAttribute Student s){
-     //   s.setTeacher(teacherRepository.findById(s.getTeacherId()).get());
         Teacher teacher = teacherRepository.findById(s.getTeacherId()).get();
         s.setTeacher(teacher);
 
         Student student = studentRepository.save(s);
-        System.out.println("VIRKER DET?!?!?!?!?");
         return ResponseEntity.status(201).header("Location", "/student/" + student.getId()).body("{'Msg': 'student created'}");
     }
 
     // Update
 
-    @PutMapping("/student")
+    @PutMapping("/student/edit")
     public ResponseEntity<String> update(@ModelAttribute Student student){
+
+        System.out.println(student);
         studentRepository.save(student);
         return ResponseEntity.status(204).body("{'msg':'Hello'}");
     }
 
-    @DeleteMapping("/student/{id}")
-    public ResponseEntity<String> deleteStudent(@PathVariable long id){
-        studentRepository.deleteById(id);
+    @DeleteMapping("/student/delete")
+    public ResponseEntity<String> deleteStudent(@ModelAttribute Student s){
+        System.out.println("delete test controller");
+        System.out.println(s);
+        studentRepository.deleteById(s.getId());
         return ResponseEntity.status(200).body("{'msg':'Deleted'}");
     }
 

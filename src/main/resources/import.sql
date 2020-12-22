@@ -1,4 +1,4 @@
-INSERT INTO Teacher (name) VALUES ('Claus')
+INSERT INTO Teacher (name) VALUES ('Lars Larsen')
 INSERT INTO Teacher (name) VALUES ('Oskar')
 INSERT INTO Teacher (name) VALUES ('Hardy')
 
