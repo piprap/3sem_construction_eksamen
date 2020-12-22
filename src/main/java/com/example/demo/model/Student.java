@@ -7,7 +7,6 @@ import org.springframework.stereotype.Component;
 import javax.persistence.*;
 
 @Entity
-//@JsonIgnoreProperties({"teacher", "id" })
 @Component
 public class Student {
 

@@ -36,19 +36,18 @@
 
             <!-- main content -->
             <div class="flex-grow">
-                <p> Insert view tables for Students and Teachers here.</p>
-                <br>
                 <h3>Add Student</h3>
 
                 <form id="studentForm">
-                Name: <input type="text" id="name">
+                Name: <input type="text" id="name" class="form-control">
                 <br>
-                Email: <input type="text" id="email">
+                Email: <input type="text" id="email" class="form-control">
                 <br>
-                Name: <input type="number" id="teacher">
+                Teacher's id: (view teacher's table)<input type="number" id="teacher" class="form-control">
                 <br>
-                <button type="submit" class="btn">Add student</button>
+                <button type="submit" class="btn btn-success">Add student</button>
                 </form>
+                <br>
 
 
                 <table class="table table-striped">
@@ -63,8 +62,8 @@
                             <td><input type="text" th:id="'studentName' + ${student.id}" name="name" th:value="${student.name}"></td>
                             <td><input type="text" th:id="'studentMail' + ${student.id}" name="email" th:value="${student.email}"></td>
                             <td><input readonly th:id="'studentTeacherId' + ${student.id}" name="studentTeacher" th:value="${student.teacher.id}"></td>
-                            <td> <button th:id="'updateForm' + ${student.id}" th:onclick="'updateStudent('+ ${student.id} +')'">Update</button>
-                                <button th:id="'deleteForm' + ${student.id}" th:onclick="'deleteStudent(' + ${student.id} + ')'">Delete</button>
+                            <td> <button th:id="'updateForm' + ${student.id}" th:onclick="'updateStudent('+ ${student.id} +')'" class="btn btn-warning">Update</button>
+                                <button th:id="'deleteForm' + ${student.id}" th:onclick="'deleteStudent(' + ${student.id} + ')'" class="btn btn-danger">Delete</button>
                             </td>
                         </tr>
                     </tbody>
@@ -122,14 +121,12 @@
                     id: id
                 },
                 success: function (data) {
-                    console.log("Tester" + data)
                     location.reload() //lidt snyd
                 }
             })
         }
 
     function updateStudent(id){
-        console.log(id)
         var studentMail = "studentMail" + id;
         var studentName = "studentName" + id;
         var studentTeacherId = "studentTeacherId" + id;
@@ -144,7 +141,6 @@
                 teacher: $('#' + studentTeacherId).val()
             },
             success: function (data) {
-                console.log("Tester" + data)
             }
 
         })

@@ -18,7 +18,6 @@ public class HomeController {
     @Autowired
     StudentRepository studentRepository;
 
-
     @GetMapping("/")
     public String index(Model model){
         Iterable<Teacher> teacherList = teacherRepository.findAll();
@@ -28,18 +27,11 @@ public class HomeController {
         return "index";
     }
 
-    @GetMapping("/add-student")
-    public String addStudent(){
-        return "add-student";
-    }
-
-
     @GetMapping("/add-teacher")
     public String addTeacher(){
         return "add-teacher";
     }
 
-    //Some wierd naming.
     @GetMapping("/about-contact")
     public String aboutContact(){
         return "about-contact";

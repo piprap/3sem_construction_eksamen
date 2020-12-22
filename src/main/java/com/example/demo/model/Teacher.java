@@ -12,9 +12,6 @@ public class Teacher {
 
     private String name;
 
-    @OneToMany(mappedBy = "teacher")
-    private Set<Student> students;
-
     public Teacher() {
     }
 
