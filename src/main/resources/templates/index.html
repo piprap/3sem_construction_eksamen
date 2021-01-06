@@ -94,8 +94,6 @@
                 </table>
             </div>
 
-
-
         </div>
         <!-- right sidebar -->
         <div class="col-md-2 fixed bg-light">
@@ -137,22 +135,17 @@
         }
 
     function updateStudent(id){
-        var studentMail = "studentMail" + id;
-        var studentName = "studentName" + id;
-        var studentTeacherId = "studentTeacherId" + id;
-
         $.ajax({
             url: 'http://localhost:8080/student/edit',
             method: "PUT",
             data: {
                 id: id,
-                name: $('#' + studentName).val(),
-                email: $('#' + studentMail).val(),
-                teacher: $('#' + studentTeacherId).val()
+                name: $('#studentName' + id).val(),
+                email: $('#studentMail' + id).val(),
+                teacher: $('#studentTeacherId' + id).val()
             },
             success: function (data) {
             }
-
         })
     }
 </script>
