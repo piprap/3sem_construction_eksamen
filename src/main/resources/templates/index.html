@@ -105,35 +105,34 @@
 
 
 <script>
-    
-        $("#studentForm").on('click','.createStudent', function () {
-                $.ajax({
-                    url: 'http://localhost:8080/student/post',
-                    method: "POST",
-                    data: {
-                        name: $("#name").val(),
-                        email: $("#email").val(),
-                        teacher: $("#teacher").val()
-                    },
-                    success: function (data) {
-                    }
-                })
-            }
-        )
-
-
-        function deleteStudent(id){
+    $("#studentForm").on('click','.createStudent', function () {
             $.ajax({
-                url: 'http://localhost:8080/student/delete',
-                method: "DELETE",
+                url: 'http://localhost:8080/student/post',
+                method: "POST",
                 data: {
-                    id: id
+                    name: $("#name").val(),
+                    email: $("#email").val(),
+                    teacher: $("#teacher").val()
                 },
                 success: function (data) {
-                    $('#studentId' + id).remove();
                 }
             })
         }
+    )
+
+
+    function deleteStudent(id){
+        $.ajax({
+            url: 'http://localhost:8080/student/delete',
+            method: "DELETE",
+            data: {
+                id: id
+            },
+            success: function (data) {
+                $('#studentId' + id).remove();
+            }
+        })
+    }
 
     function updateStudent(id){
         $.ajax({
