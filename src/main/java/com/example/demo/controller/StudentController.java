@@ -33,7 +33,7 @@ public class StudentController {
         s.setTeacher(teacher);
 
         Student student = studentRepository.save(s);
-        return ResponseEntity.status(201).header("Location", "/student/" + student.getId()).body("{'Msg': 'create student complete'}");
+        return ResponseEntity.status(201).body("{'Msg': 'create student complete'}");
     }
 
 
