@@ -59,11 +59,11 @@
 
                 <table class="table table-striped">
                     <thead>
-                    <th scope="col">Student name</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">Teacher ID</th>
-                    <th></th>
-                    <th scope="col">Update/Delete</th>
+                        <th scope="col">Student name</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Teacher ID</th>
+                        <th></th>
+                        <th scope="col">Update/Delete</th>
                     </thead>
 
                     <tbody th:each="student: ${students}">
@@ -72,7 +72,8 @@
                             <td><input type="text" th:id="'studentMail' + ${student.id}" name="email" th:value="${student.email}"></td>
                             <td><input readonly th:value="${student.teacher.name}"></td>
                             <td style="visibility: hidden; display: inline;" ><input th:id="'studentTeacherId' + ${student.id}" name="studentTeacher" th:value="${student.teacher.id}" style="visibility: hidden; display: inline;"></td>
-                            <td> <button th:id="'updateForm' + ${student.id}" th:onclick="'updateStudent('+ ${student.id} +')'" class="btn btn-warning">Update</button>
+                            <td>
+                                <button th:id="'updateForm' + ${student.id}" th:onclick="'updateStudent('+ ${student.id} +')'" class="btn btn-warning">Update</button>
                                 <button th:id="'deleteForm' + ${student.id}" th:onclick="'deleteStudent(' + ${student.id} + ')'" class="btn btn-danger">Delete</button>
                             </td>
                         </tr>
@@ -81,8 +82,8 @@
 
                 <table class="table table-striped">
                     <thead>
-                    <th scope="col">#id</th>
-                    <th scope="col">Teacher Name</th>
+                        <th scope="col">#id</th>
+                        <th scope="col">Teacher Name</th>
                     </thead>
                     <tbody>
                     <tr th:each="teacher: ${teachers}">
