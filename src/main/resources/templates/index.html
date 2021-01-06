@@ -39,11 +39,18 @@
                 <h3>Add Student</h3>
 
                 <form id="studentForm">
-                Name: <input type="text" id="name" class="form-control">
+                <input type="text" id="name" class="form-control" placeholder="Student name">
                 <br>
-                Email: <input type="text" id="email" class="form-control">
+                <input type="text" id="email" class="form-control" placeholder="mail@mail.com">
                 <br>
-                Teacher's id: (view teacher's table)<input type="number" id="teacher" class="form-control">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroupPrepend2">Teacher:</span>
+                    </div>
+                    <select id="teacher" class="form-control">
+                        <option th:each="teacher : ${teachers}" th:value="${teacher.id}" th:text="${teacher.name}"></option>
+                    </select>
+                </div>
                 <br>
                 <button type="submit" class="btn btn-success">Add student</button>
                 </form>
@@ -55,13 +62,16 @@
                     <th scope="col">Student name</th>
                     <th scope="col">Email</th>
                     <th scope="col">Teacher ID</th>
+                    <th></th>
                     <th scope="col">Update/Delete</th>
                     </thead>
-                    <tbody>
-                        <tr th:each="student: ${students}">
+
+                    <tbody th:each="student: ${students}">
+                        <tr th:id="'studentId' + ${student.id}">
                             <td><input type="text" th:id="'studentName' + ${student.id}" name="name" th:value="${student.name}"></td>
                             <td><input type="text" th:id="'studentMail' + ${student.id}" name="email" th:value="${student.email}"></td>
-                            <td><input readonly th:id="'studentTeacherId' + ${student.id}" name="studentTeacher" th:value="${student.teacher.id}"></td>
+                            <td><input readonly th:value="${student.teacher.name}"></td>
+                            <td style="visibility: hidden; display: inline;" ><input th:id="'studentTeacherId' + ${student.id}" name="studentTeacher" th:value="${student.teacher.id}" style="visibility: hidden; display: inline;"></td>
                             <td> <button th:id="'updateForm' + ${student.id}" th:onclick="'updateStudent('+ ${student.id} +')'" class="btn btn-warning">Update</button>
                                 <button th:id="'deleteForm' + ${student.id}" th:onclick="'deleteStudent(' + ${student.id} + ')'" class="btn btn-danger">Delete</button>
                             </td>
@@ -95,7 +105,6 @@
 
 
 <script>
-
     $(document).ready(
         $("#studentForm").on('click','.btn', function () {
                 $.ajax({
@@ -121,7 +130,7 @@
                     id: id
                 },
                 success: function (data) {
-                    location.reload() //lidt snyd
+                    $('#studentId' + id).remove();
                 }
             })
         }
