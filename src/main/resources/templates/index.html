@@ -36,6 +36,7 @@
 
             <!-- main content -->
             <div class="flex-grow">
+                <br>
                 <h3>Add Student</h3>
 
                 <form id="studentForm">
@@ -71,7 +72,7 @@
                             <td><input type="text" th:id="'studentName' + ${student.id}" name="name" th:value="${student.name}"></td>
                             <td><input type="text" th:id="'studentMail' + ${student.id}" name="email" th:value="${student.email}"></td>
                             <td><input readonly th:value="${student.teacher.name}"></td>
-                            <td style="visibility: hidden; display: inline;" ><input th:id="'studentTeacherId' + ${student.id}" name="studentTeacher" th:value="${student.teacher.id}" style="visibility: hidden; display: inline;"></td>
+                            <td><input th:id="'studentTeacherId' + ${student.id}" name="studentTeacher" th:value="${student.teacher.id}" style="visibility: hidden; display: inline;"></td>
                             <td>
                                 <button th:id="'updateForm' + ${student.id}" th:onclick="'updateStudent('+ ${student.id} +')'" class="btn btn-warning">Update</button>
                                 <button th:id="'deleteForm' + ${student.id}" th:onclick="'deleteStudent(' + ${student.id} + ')'" class="btn btn-danger">Delete</button>

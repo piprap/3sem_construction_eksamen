@@ -27,7 +27,6 @@ public class StudentController {
     }
 
 
-    @CrossOrigin(origins = "*", exposedHeaders = "Location")
     @PostMapping("/student/post")
     public ResponseEntity<String> create(@ModelAttribute Student s){
         Teacher teacher = teacherRepository.findById(s.getTeacherId()).get();
